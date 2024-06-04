@@ -22,15 +22,13 @@ const ProductList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://catalog-management-system-dev-ak3ogf6zea-uc.a.run.app/cms/products`)
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://catalog-management-system-dev-ak3ogf6zea-uc.a.run.app/cms/products?page=${page + 1}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json();
-      })
-      .then(data => {
-        // id for product in the API response is null , adding index as id for each product to navigate to product detail page
+        const data = await response.json();
         const productsWithId = data.products.map((product, index) => ({
           ...product,
           id: index,
@@ -40,13 +38,15 @@ const ProductList = () => {
         const categorySet = new Set(productsWithId.map(product => product.main_category));
         setCategories([...categorySet]);
         setLoading(false);
-      })
-      .catch(error => {     // error handling with catch block
+      } catch (error) {
         console.error('Error fetching data:', error);
         setError(error);
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    fetchData();
+  }, [page]);
 
   useEffect(() => {
     let filteredProducts = allProducts
@@ -87,25 +87,23 @@ const ProductList = () => {
     setPage(0);
   };
 
-
-
   const handleProductClick = (product) => {
-    navigate(`/product/${product.id}`, { state:  {product}  });
+    navigate(`/product/${product.id}`, { state: { product } });
   };
 
-  const handleImageError = (e) => { // this function is created to handle img url as these are returnign null, no images , setting a default image cookie instead
+  const handleImageError = (e) => {
     e.target.src = cookie;
   };
 
   if (loading) {
-    return <div>Loading...</div>; // loader implemented
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>; //error handling
+    return <div>Error: {error.message}</div>;
   }
 
-  const columns = [ // columns degined for data grid from material UI
+  const columns = [
     { field: 'name', headerName: 'Name', width: 300 },
     { field: 'main_category', headerName: 'Category', width: 150 },
     {
@@ -139,13 +137,13 @@ const ProductList = () => {
         <div className="sidebar">
           <SearchFilter searchTerm={searchTerm} setSearchTerm={handleSearchTermChange} />
           <CategoryFilter categories={categories} selectedCategory={selectedCategory} setSelectedCategory={handleCategoryChange} />
-         <div className='sort-filter'>
+          <div className='sort-filter'>
             <h3><label htmlFor="sort-select" className="sort-label">Sort by Price</label></h3>
             <select id="sort-select" onChange={(e) => handleSortModelChange([{ field: 'mrp.mrp', sort: e.target.value }])} className="sort-select">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
             </select>
-         </div>
+          </div>
         </div>
         <div className="main">
           <div style={{ height: 600, width: '100%' }}>
