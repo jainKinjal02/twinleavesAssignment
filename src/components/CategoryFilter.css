@@ -1,0 +1,30 @@
+.category-filter {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .category-label {
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .category-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .category-select:focus {
+    border-color: green;
+  }
+  
+  .category-item {
+    margin-bottom: 10px;
+  }
+  
+  .category-item label {
+    margin-left: 5px;
+  }
+  

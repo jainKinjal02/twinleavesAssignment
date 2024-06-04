@@ -1,0 +1,152 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .app-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: green;
+  }
+  
+  .app-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 70px;
+    height: 50px;
+  }
+  
+ /* added animation for heading */
+  .app-heading h2 {
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .content {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .sidebar {
+    width: 200px;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  
+  .main {
+    flex: 1;
+  }
+  
+  .filter {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    margin-bottom: 20px;
+    outline: none;
+  }
+  
+  .filter::placeholder {
+    color: #aaa;
+  }
+  
+
+  .sort-label {
+    margin-top: 20px;
+    color: green;
+  }
+  
+  .sort-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    margin-top: 10px;
+  }
+  
+  .sort-select:focus {
+    border-color: green;
+  }
+  
+  .category-filter {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .category-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .category-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  
+  .category-heading {
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .category-line {
+    height: 1px;
+    background-color: lightgrey;
+    margin-bottom: 15px;
+  }
+  
+  .category-item {
+    margin-bottom: 10px;
+  }
+  
+  .category-item label {
+    margin-left: 5px;
+  }
+
+  .sort-filter {
+    padding: 10px;
+  }
+  
+  /* media query aded */
+  @media (max-width: 768px) {
+    .app-heading {
+      flex-direction: column;
+    }
+  
+    .app-icon {
+      position: static;
+      margin-bottom: 10px;
+    }
+  
+    .content {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .main {
+      width: 100%;
+    }
+  }
+  
